@@ -1,18 +1,32 @@
 package com.capellax.example;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.PropertySources;
 import org.springframework.stereotype.Service;
 
 @Service
+@PropertySources({
+        @PropertySource("classpath:custom.properties"),
+        @PropertySource("classpath:custom-2.properties")
+})
 public class MyFirstService {
 
-    private MyFirstClass myFirstClass;
+    private final MyFirstClass myFirstClass;
 
-    private Environment environment;
+    @Value("${my.prop}")
+    private String customPropertyFromAnotherFile;
 
-    @Autowired
-    public void injectDependencies(MyFirstClass myFirstClass) {
+    @Value("${my.prop-2}")
+    private String customPropertyFromAnotherFile2;
+
+    @Value("${my.custom.property}")
+    private String myCustomProperty;
+
+    @Value("${my.custom.integer}")
+    private Integer myCustomInteger;
+
+    public MyFirstService(MyFirstClass myFirstClass) {
         this.myFirstClass = myFirstClass;
     }
 
@@ -20,16 +34,20 @@ public class MyFirstService {
         return "the dependency is saying: " + myFirstClass.sayHello();
     }
 
-    public String getJavaVersion() {
-        return "java version: " + environment.getProperty("java.version");
+    public String getCustomPropertyFromAnotherFile() {
+        return customPropertyFromAnotherFile;
     }
 
-    public String getOsName() {
-        return environment.getProperty("os.name");
+    public String getCustomPropertyFromAnotherFile2() {
+        return customPropertyFromAnotherFile2;
     }
 
-    @Autowired
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
+    public String getMyCustomProperty() {
+        return myCustomProperty;
     }
+
+    public Integer getMyCustomInteger() {
+        return myCustomInteger;
+    }
+
 }
