@@ -3,18 +3,17 @@ package com.capellax.example;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "T_STUDENT")
 public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "c_fname")
     private String firstName;
 
     private String lastName;
 
+    @Column(unique = true)
     private String email;
 
     private Integer age;
