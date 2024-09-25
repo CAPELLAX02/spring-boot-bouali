@@ -1,14 +1,16 @@
 package com.capellax.example;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
+@Table(name = "T_STUDENT")
 public class Student {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Column(name = "c_fname")
     private String firstName;
 
     private String lastName;
@@ -60,7 +62,13 @@ public class Student {
         this.age = age;
     }
 
-    public Student(Integer id, String firstName, String lastName, String email, Integer age) {
+    public Student(
+            Integer id,
+            String firstName,
+            String lastName,
+            String email,
+            Integer age
+    ) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
