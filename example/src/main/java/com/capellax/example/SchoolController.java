@@ -3,6 +3,7 @@ package com.capellax.example;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class SchoolController {
@@ -17,35 +18,30 @@ public class SchoolController {
 
     // Create new school
     @PostMapping("/schools")
-    public School create(
-            @RequestBody School school
+    public SchoolDTO create(
+            @RequestBody SchoolDTO schoolDto
     ) {
-        return schoolRepository.save(school);
+        var school = toSchool(schoolDto);
+        schoolRepository.save(school);
+        return schoolDto;
+    }
+
+    private School toSchool(SchoolDTO schoolDto) {
+        return new School(schoolDto.name());
+    }
+
+    private SchoolDTO toSchoolDTO(School school) {
+        return new SchoolDTO(school.getName());
     }
 
     // Get all schools
     @GetMapping("/schools")
-    public List<School> findAll() {
-        return schoolRepository.findAll();
-    }
-
-    // Get school by ID
-    @GetMapping("/schools/{schoolId}")
-    public School findById(
-            @PathVariable Integer schoolId
-    ) {
+    public List<SchoolDTO> findAll() {
         return schoolRepository
-                .findById(schoolId)
-                .orElse(null);
+                .findAll()
+                .stream()
+                .map(this::toSchoolDTO)
+                .collect(Collectors.toList());
     }
-
-    // Delete school by ID
-    @DeleteMapping("/schools/{schoolId}")
-    public void delete(
-            @PathVariable Integer schoolId
-    ) {
-        schoolRepository.deleteById(schoolId);
-    }
-
 
 }
