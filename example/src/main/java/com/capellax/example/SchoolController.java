@@ -29,6 +29,16 @@ public class SchoolController {
         return schoolRepository.findAll();
     }
 
+    // Get school by ID
+    @GetMapping("/schools/{schoolId}")
+    public School findById(
+            @PathVariable Integer schoolId
+    ) {
+        return schoolRepository
+                .findById(schoolId)
+                .orElse(null);
+    }
+
     // Delete school by ID
     @DeleteMapping("/schools/{schoolId}")
     public void delete(
