@@ -6,17 +6,17 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class FirstController {
+public class StudentController {
 
+    // Inject the Student Repository
     private final StudentRepository studentRepository;
 
     // Constructor
-    public FirstController(
+    public StudentController(
             StudentRepository studentRepository
     ) {
         this.studentRepository = studentRepository;
     }
-
 
     // Create new student
     @PostMapping("/students")
@@ -25,7 +25,6 @@ public class FirstController {
     ) {
         return studentRepository.save(student);
     }
-
 
     // Get student by ID
     @GetMapping("/students/{studentId}")
@@ -36,7 +35,6 @@ public class FirstController {
                 .findById(studentId)
                 .orElse(new Student());
     }
-
 
     // Get all students
     @GetMapping("/students")
@@ -53,7 +51,6 @@ public class FirstController {
                 .findAllByFirstNameContainingIgnoreCase(name);
     }
 
-
     // Delete a student
     @DeleteMapping("/students/{studentId}")
     @ResponseStatus(HttpStatus.OK)
@@ -62,7 +59,5 @@ public class FirstController {
     ) {
         studentRepository.deleteById(studentId);
     }
-
-
 
 }
