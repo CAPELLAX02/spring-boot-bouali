@@ -30,12 +30,25 @@ public class Student {
      */
     @ManyToOne
     @JoinColumn(
-            name = "shool_id"
+            name = "school_id"
     )
     private School school;
 
     // Empty Constructor
     public Student() {}
+
+    // Constructor
+    public Student(
+            String firstName,
+            String lastName,
+            String email,
+            Integer age
+    ) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.age = age;
+    }
 
     // Getters & Setters
     public Integer getId() {
@@ -94,18 +107,4 @@ public class Student {
         this.school = school;
     }
 
-    // Constructor
-    public Student(
-            Integer id,
-            String firstName,
-            String lastName,
-            String email,
-            Integer age
-    ) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.age = age;
-    }
 }
