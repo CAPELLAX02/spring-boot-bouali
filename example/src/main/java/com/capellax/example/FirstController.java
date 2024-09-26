@@ -17,6 +17,7 @@ public class FirstController {
         this.studentRepository = studentRepository;
     }
 
+
     // Create new student
     @PostMapping("/students")
     public Student createStudent(
@@ -24,6 +25,7 @@ public class FirstController {
     ) {
         return studentRepository.save(student);
     }
+
 
     // Get student by ID
     @GetMapping("/students/{studentId}")
@@ -34,6 +36,7 @@ public class FirstController {
                 .findById(studentId)
                 .orElse(new Student());
     }
+
 
     // Get all students
     @GetMapping("/students")
@@ -50,6 +53,7 @@ public class FirstController {
                 .findAllByFirstNameContainingIgnoreCase(name);
     }
 
+
     // Delete a student
     @DeleteMapping("/students/{studentId}")
     @ResponseStatus(HttpStatus.OK)
@@ -58,5 +62,7 @@ public class FirstController {
     ) {
         studentRepository.deleteById(studentId);
     }
+
+
 
 }

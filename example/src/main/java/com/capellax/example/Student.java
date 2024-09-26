@@ -18,9 +18,26 @@ public class Student {
 
     private Integer age;
 
-    public Student() {
-    }
+    @OneToOne(
+            mappedBy = "student",
+            cascade = CascadeType.ALL
+    )
+    private StudentProfile studentProfile;
 
+    /**
+     * "@ManyToOne" annotation should always
+     * remind you "@JoinColumn" annotation.
+     */
+    @ManyToOne
+    @JoinColumn(
+            name = "shool_id"
+    )
+    private School school;
+
+    // Empty Constructor
+    public Student() {}
+
+    // Getters & Setters
     public Integer getId() {
         return id;
     }
@@ -61,6 +78,23 @@ public class Student {
         this.age = age;
     }
 
+    public StudentProfile getStudentProfile() {
+        return studentProfile;
+    }
+
+    public void setStudentProfile(StudentProfile studentProfile) {
+        this.studentProfile = studentProfile;
+    }
+
+    public School getSchool() {
+        return school;
+    }
+
+    public void setSchool(School school) {
+        this.school = school;
+    }
+
+    // Constructor
     public Student(
             Integer id,
             String firstName,
