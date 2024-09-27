@@ -7,6 +7,4 @@ public record StudentDTO(
         Integer schoolId
 ) {
 
-
-
 }
