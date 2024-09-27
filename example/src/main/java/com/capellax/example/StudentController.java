@@ -8,45 +8,26 @@ import java.util.List;
 @RestController
 public class StudentController {
 
-    // Inject the Student Repository
-    private final StudentRepository studentRepository;
+    // Inject the service
+    private final StudentService studentService;
 
     // Constructor
-    public StudentController(
-            StudentRepository studentRepository
-    ) {
-        this.studentRepository = studentRepository;
+    public StudentController(StudentService studentService) {
+        this.studentService = studentService;
     }
 
     // Create new student
     @PostMapping("/students")
-    public StudentResponseDTO createStudent(
+    public StudentResponseDTO saveStudent(
             @RequestBody StudentDTO studentDTO
     ) {
-        var student = toStudent(studentDTO);
-        var savedStudent =  studentRepository.save(student);
-        return toStudentResponseDTO(savedStudent);
+        return this.studentService.saveStudent(studentDTO);
     }
 
-    private Student toStudent(StudentDTO studentDTO) {
-        var student = new Student();
-        student.setFirstName(studentDTO.firstName());
-        student.setLastName(studentDTO.lastName());
-        student.setEmail(studentDTO.email());
-        var school = new School();
-        school.setId(studentDTO.schoolId());
-        student.setSchool(school);
-        return student;
-    }
-
-    private StudentResponseDTO toStudentResponseDTO(
-            Student student
-    ) {
-        return new StudentResponseDTO(
-                student.getFirstName(),
-                student.getLastName(),
-                student.getEmail()
-        );
+    // Get all students
+    @GetMapping("/students")
+    public List<Student> findAllStudents() {
+        return this.studentService.findAllStudents();
     }
 
     // Get student by ID
@@ -54,24 +35,15 @@ public class StudentController {
     public Student getStudentById(
             @PathVariable Integer studentId
     ) {
-        return studentRepository
-                .findById(studentId)
-                .orElse(new Student());
+        return this.studentService.getStudentById(studentId);
     }
 
-    // Get all students
-    @GetMapping("/students")
-    public List<Student> getAllStudents() {
-        return studentRepository.findAll();
-    }
-
-    // Get student by name
+    // Get student by name filtering
     @GetMapping("/students/search/{studentName}")
     public List<Student> findStudentByName(
             @PathVariable("studentName") String name
     ) {
-        return studentRepository
-                .findAllByFirstNameContainingIgnoreCase(name);
+        return this.studentService.findStudentByName(name);
     }
 
     // Delete a student
@@ -80,7 +52,7 @@ public class StudentController {
     public void deleteStudentById(
             @PathVariable Integer studentId
     ) {
-        studentRepository.deleteById(studentId);
+        this.studentService.deleteStudentById(studentId);
     }
 
 }
