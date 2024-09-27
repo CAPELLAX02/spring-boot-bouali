@@ -1,9 +1,9 @@
 package com.capellax.example;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StudentService {
@@ -31,24 +31,33 @@ public class StudentService {
     }
 
     // Get all students
-    public List<Student> findAllStudents() {
-        return studentRepository.findAll();
+    public List<StudentResponseDTO> findAllStudents() {
+        return studentRepository
+                .findAll()
+                .stream()
+                .map(studentMapper::toStudentResponseDTO)
+                .collect(Collectors.toList());
     }
 
     // Get student by ID
-    public Student getStudentById(
+    public StudentResponseDTO getStudentById(
             Integer id
     ) {
         return studentRepository
                 .findById(id)
+                .map(studentMapper::toStudentResponseDTO)
                 .orElse(null);
     }
 
     // Get student by name filtering
-    public List<Student> findStudentByName(
+    public List<StudentResponseDTO> findStudentByName(
             String name
     ) {
-        return studentRepository.findAllByFirstNameContainingIgnoreCase(name);
+        return studentRepository
+                .findAllByFirstNameContainingIgnoreCase(name)
+                .stream()
+                .map(studentMapper::toStudentResponseDTO)
+                .collect(Collectors.toList());
     }
 
     // Delete a student

@@ -26,13 +26,13 @@ public class StudentController {
 
     // Get all students
     @GetMapping("/students")
-    public List<Student> findAllStudents() {
+    public List<StudentResponseDTO> findAllStudents() {
         return this.studentService.findAllStudents();
     }
 
     // Get student by ID
     @GetMapping("/students/{studentId}")
-    public Student getStudentById(
+    public StudentResponseDTO getStudentById(
             @PathVariable Integer studentId
     ) {
         return this.studentService.getStudentById(studentId);
@@ -40,10 +40,20 @@ public class StudentController {
 
     // Get student by name filtering
     @GetMapping("/students/search/{studentName}")
-    public List<Student> findStudentByName(
+    public List<StudentResponseDTO> findStudentByName(
             @PathVariable("studentName") String name
+            /**
+             * We could have either do:
+             *     1 - @PathVariable("studentName") String name
+             *     2 - @PathVariable String studentName
+             */
     ) {
         return this.studentService.findStudentByName(name);
+        /**
+         * We could have either do:
+         *     1 - return this.studentService.findStudentByName(name);
+         *     2 - return this.studentService.findStudentByName(studentName);
+         */
     }
 
     // Delete a student
