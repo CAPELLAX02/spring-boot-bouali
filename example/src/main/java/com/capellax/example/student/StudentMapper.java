@@ -1,5 +1,6 @@
-package com.capellax.example;
+package com.capellax.example.student;
 
+import com.capellax.example.school.School;
 import org.springframework.stereotype.Service;
 
 @Service

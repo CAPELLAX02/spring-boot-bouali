@@ -1,4 +1,4 @@
-package com.capellax.example;
+package com.capellax.example.school;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;

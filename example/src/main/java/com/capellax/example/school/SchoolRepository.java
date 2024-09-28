@@ -1,4 +1,4 @@
-package com.capellax.example;
+package com.capellax.example.school;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

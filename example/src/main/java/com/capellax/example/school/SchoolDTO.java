@@ -1,4 +1,4 @@
-package com.capellax.example;
+package com.capellax.example.school;
 
 public record SchoolDTO(
         String name

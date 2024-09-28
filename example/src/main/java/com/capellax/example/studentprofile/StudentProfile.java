@@ -1,5 +1,6 @@
-package com.capellax.example;
+package com.capellax.example.studentprofile;
 
+import com.capellax.example.student.Student;
 import jakarta.persistence.*;
 
 @Entity

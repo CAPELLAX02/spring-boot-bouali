@@ -1,5 +1,6 @@
-package com.capellax.example;
+package com.capellax.example.school;
 
+import com.capellax.example.student.Student;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
