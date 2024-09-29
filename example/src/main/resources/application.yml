@@ -1,4 +1,8 @@
 spring:
+  messages:
+    basename: messages
+    always-use-message-format: true
+    use-code-as-default-message: false
   datasource:
     url: jdbc:postgresql://localhost:5432/demo_db
     username: capellax
@@ -7,9 +11,12 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
-    show-sql: true
+    show-sql: truez
     properties:
       hibernate:
         format_sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+  web:
+    locale: en
+    locale-resolver: fixed
